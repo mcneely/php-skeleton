@@ -1,0 +1,48 @@
+version: '3'
+services:
+    apache:
+        build: .docker/apache
+        container_name: apache
+        ports:
+          - 8080:80
+        volumes:
+          - .docker/config/vhosts:/etc/apache2/sites-enabled
+          - .:/var/www/
+        depends_on:
+          - php
+        networks:
+        - app
+
+    database:
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        container_name: mysql
+        volumes:
+            - .docker/data/mysql:/var/lib/mysql
+        env_file:
+        - .env
+        ports:
+        - 3306:3306
+        networks:
+        - app
+
+    php:
+        build: .docker/php
+        container_name: php
+        volumes:
+          - .:/var/www
+        depends_on:
+          - maildev
+          - database
+        networks:
+        - app
+
+    maildev:
+        image: djfarrelly/maildev
+        container_name: maildev
+        ports:
+          - 8001:80
+
+networks:
+    app:
