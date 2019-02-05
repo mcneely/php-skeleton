@@ -1,10 +1,10 @@
-/.env
 .idea
 .docker/data/
 
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.*.local
+/.env.test
 /public/bundles/
 /var/
 /vendor/
