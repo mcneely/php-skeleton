@@ -1,9 +1,9 @@
-FROM php:7.2.15-fpm
+FROM php:7.4.2-fpm
 
 RUN apt-get update \
-    && pecl install xdebug-2.6.1 \
-    && apt-get install -y --no-install-recommends curl debconf git apt-transport-https apt-utils \
-    build-essential locales acl mailutils wget nodejs zip unzip \
+    && pecl install xdebug \
+    && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
+    build-essential locales acl mailutils wget nodejs libzip-dev libzip4 zip unzip\
     gnupg gnupg1 gnupg2 \
     libpq-dev zlib1g-dev \
     sudo
@@ -11,6 +11,7 @@ RUN apt-get update \
 RUN docker-php-ext-install pdo pdo_mysql zip
 
 COPY php.ini /usr/local/etc/php/php.ini
+COPY xdebug.ini /xdebug.ini
 COPY php-fpm-pool.conf 	/usr/local/etc/php/pool.d/www.conf
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
@@ -22,12 +23,11 @@ RUN passwd -d dev
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen
 
 RUN echo "dev ALL=(ALL) ALL" > /etc/sudoers
 
-WORKDIR /var/www/app
+WORKDIR /var/www/public
 
 EXPOSE 9000
 CMD ["php-fpm"]

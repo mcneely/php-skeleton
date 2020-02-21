@@ -10,8 +10,11 @@ services:
             - .docker/config/vhosts:/etc/apache2/sites-enabled
             - .:/var/www/
             - .docker/data/log:/var/log
+        env_file:
+            - .env
         depends_on:
             - php-fpm
+            - maildev
         networks:
             - app
 
@@ -23,18 +26,19 @@ services:
         volumes:
             - .docker/data/mysql:/var/lib/mysql
             - .docker/data/log:/var/log
+        env_file:
+            - .env
         ports:
             - 3306:3306
         networks:
             - app
 
     php-fpm:
-        build: .docker/php/fpm
-        container_name: php-fpm
-        restart: always
         volumes:
             - .:/var/www
             - .docker/data/log:/var/log
+        env_file:
+            - .env
         depends_on:
             - php-cli
             - database
@@ -42,15 +46,21 @@ services:
             - app
 
     php-cli:
-        build: .docker/php/cli
-        container_name: php-cli
-        restart: always
         volumes:
             - .:/var/www
             - .docker/data/log:/var/log
+        env_file:
+            - .env
         depends_on:
             - database
         networks:
             - app
+
+    maildev:
+        image: djfarrelly/maildev
+        container_name: maildev
+        ports:
+            - 8001:80
+
 networks:
     app:

@@ -1,6 +1,9 @@
+.env
 .idea
 .docker/data/
 
+fiddle*
+Fiddle*
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.*.local
@@ -24,3 +27,5 @@
 /public/build/
 npm-debug.log
 ###< symfony/webpack-encore-bundle ###
+
+yarn-error.log

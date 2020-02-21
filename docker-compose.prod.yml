@@ -29,9 +29,6 @@ services:
             - app
 
     php-fpm:
-        build: .docker/php/fpm
-        container_name: php-fpm
-        restart: always
         volumes:
             - .:/var/www
             - .docker/data/log:/var/log
@@ -42,9 +39,6 @@ services:
             - app
 
     php-cli:
-        build: .docker/php/cli
-        container_name: php-cli
-        restart: always
         volumes:
             - .:/var/www
             - .docker/data/log:/var/log
@@ -52,5 +46,6 @@ services:
             - database
         networks:
             - app
+
 networks:
     app:

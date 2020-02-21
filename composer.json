@@ -2,12 +2,17 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.10"
+        "php": "^7.4",
+        "ext-SimpleXML": "^7.2",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-libxml": "*"
     },
     "require-dev": {
-        "phploc/phploc": "^4.0",
-        "phpstan/phpstan": "^0.11.1",
-        "phpunit/phpunit": "^8.0"
+        "phploc/phploc": "^6.0",
+        "phpstan/phpstan": "^0.13",
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "preferred-install": {
@@ -26,5 +31,36 @@
         }
     },
     "scripts": {
+        "container-deploy":  [
+            "rm -rf var/cache/prod/*",
+            "yarn install",
+            "yarn run build",
+            "yarn install --production"
+        ],
+        "container-deploy-dev":  [
+            "rm -rf var/cache/dev/*",
+            "rm -rf var/cache/prod/*",
+            "yarn install",
+            "yarn run build"
+        ],
+        "deploy" : [
+            "git pull",
+            "docker exec php-cli composer container-deploy",
+            "docker exec php-cli composer install --no-dev"
+        ],
+        "deploy-dev" : [
+            "docker exec php-cli composer container-deploy-dev",
+            "docker exec php-cli composer install"
+        ],
+        "prod-up": [
+            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
+            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
+            "@deploy"
+        ],
+        "dev-up": [
+            "docker-compose build",
+            "docker-compose up -d",
+            "@deploy-dev"
+        ]
     }
 }
