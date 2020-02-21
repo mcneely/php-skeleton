@@ -2,7 +2,7 @@ FROM php:7.4.2-fpm
 
 RUN apt-get update \
     && pecl install xdebug \
-    && apt-get install -y --no-install-recommends vim curl debconf subversion git apt-transport-https apt-utils \
+    && apt-get install -y --no-install-recommends curl debconf git apt-transport-https apt-utils \
     build-essential locales acl mailutils wget nodejs libzip-dev libzip4 zip unzip\
     gnupg gnupg1 gnupg2 \
     libpq-dev zlib1g-dev \
