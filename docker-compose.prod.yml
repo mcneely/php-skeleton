@@ -1,51 +1,20 @@
 version: '3'
 services:
     apache:
-        build: .docker/apache
         container_name: apache
         restart: always
-        ports:
-            - 80:80
-        volumes:
-            - .docker/config/vhosts:/etc/apache2/sites-enabled
-            - .:/var/www/
-            - .docker/data/log:/var/log
-        depends_on:
-            - php-fpm
-        networks:
-            - app
 
     database:
-        image: mysql
-        command: --default-authentication-plugin=mysql_native_password --disable-log-bin
-        restart: always
         container_name: mysql
-        volumes:
-            - .docker/data/mysql:/var/lib/mysql
-            - .docker/data/log:/var/log
-        ports:
-            - 3306:3306
-        networks:
-            - app
+        restart: always
 
     php-fpm:
-        volumes:
-            - .:/var/www
-            - .docker/data/log:/var/log
-        depends_on:
-            - php-cli
-            - database
-        networks:
-            - app
+        container_name: php-fpm
+        restart: always
 
     php-cli:
-        volumes:
-            - .:/var/www
-            - .docker/data/log:/var/log
-        depends_on:
-            - database
-        networks:
-            - app
+        container_name: php-cli
+        restart: always
 
 networks:
     app:
