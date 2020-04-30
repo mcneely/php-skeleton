@@ -1,19 +1,24 @@
-version: '3'
+version: '3.4'
 services:
     apache:
-        container_name: apache
         restart: always
+        ports:
+            - 80:80443
+            - 443:443
+
+#    nginx:
+#        restart: always
+#        ports:
+#            - 80:80443
+#            - 443:443
 
     database:
-        container_name: mysql
         restart: always
 
     php-fpm:
-        container_name: php-fpm
         restart: always
 
     php-cli:
-        container_name: php-cli
         restart: always
 
 networks:

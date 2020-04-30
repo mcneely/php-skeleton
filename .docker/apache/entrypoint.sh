@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-apachectl  -DFOREGROUND -e info
+apache2ctl  -DFOREGROUND -e info

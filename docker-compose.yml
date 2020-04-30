@@ -5,9 +5,11 @@ services:
         container_name: apache
         restart: always
         ports:
-            - 80:80
+            - 443:443
         volumes:
-            - .docker/apache/vhosts:/etc/apache2/sites-enabled
+            - .docker/apache/sites-enabled:/etc/apache2/sites-enabled
+            - .docker/apache/include:/etc/apache2/include
+            - .docker/certs:/etc/http-certs
             - .:/var/www/
             - .docker/data/log/apache:/var/log
         depends_on:
@@ -15,8 +17,25 @@ services:
         networks:
             - app
 
+#    nginx:
+#        image: nginx:1.17.9
+#        container_name: nginx
+#        restart: always
+#        ports:
+#            - 80:80
+#            - 443:443
+#        volumes:
+#            - .docker/nginx/conf.d:/etc/nginx/conf.d/
+#            - .docker/certs:/etc/http-certs
+#            - .:/var/www/
+#            - .docker/data/log/nginx:/var/log
+#        depends_on:
+#            - php-fpm
+#        networks:
+#            - app
+
     database:
-        image: mysql:5.7
+        image: mysql:8.0
         container_name: mysql
         restart: always
         command: --default-authentication-plugin=mysql_native_password --disable-log-bin

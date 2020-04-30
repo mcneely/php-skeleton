@@ -32,25 +32,21 @@
     },
     "scripts": {
         "container-deploy-prod":  [
-            "rm -rf var/cache/prod/*",
-            "yarn install",
-            "yarn run build",
+            "@container-deploy-dev",
             "yarn install --production"
         ],
         "container-deploy-dev":  [
-            "rm -rf var/cache/dev/*",
-            "rm -rf var/cache/prod/*",
             "yarn install",
             "yarn run build"
         ],
         "deploy-prod" : [
             "git pull",
-            "docker exec php-cli composer container-deploy",
-            "docker exec php-cli composer install --no-dev"
+            "docker exec php-cli composer install --no-dev",
+            "docker exec php-cli composer container-deploy-prod"
         ],
         "deploy-dev" : [
-            "docker exec php-cli composer container-deploy",
-            "docker exec php-cli composer install"
+            "docker exec php-cli composer install",
+            "docker exec php-cli composer container-deploy-dev"
         ],
         "prod-up": [
             "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
@@ -58,7 +54,6 @@
             "@deploy-prod"
         ],
         "dev-up": [
-            "docker-compose build",
             "docker-compose up -d",
             "@deploy-dev"
         ],
