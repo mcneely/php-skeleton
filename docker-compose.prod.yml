@@ -3,13 +3,13 @@ services:
     apache:
         restart: always
         ports:
-            - 80:80443
+            - 80:44380
             - 443:443
 
 #    nginx:
 #        restart: always
 #        ports:
-#            - 80:80443
+#            - 80:44380
 #            - 443:443
 
     database:

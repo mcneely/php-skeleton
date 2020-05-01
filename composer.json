@@ -50,12 +50,10 @@
         ],
         "prod-up": [
             "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
-            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d",
-            "@deploy-prod"
+            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d"
         ],
         "dev-up": [
-            "docker-compose up -d",
-            "@deploy-dev"
+            "docker-compose up -d"
         ],
         "prod-down": [
             "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down"
