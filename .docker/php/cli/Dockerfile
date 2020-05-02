@@ -1,4 +1,4 @@
-FROM php:7.4.5-cli
+FROM php:7.4-cli-buster
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY xdebug.ini /xdebug.ini
@@ -20,7 +20,7 @@ WORKDIR /var/www
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer &&\
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&\
-    curl -sL https://deb.nodesource.com/setup_10.x | bash - &&\
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - &&\
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list &&\
     apt-get update && apt-get install -y --no-install-recommends --no-install-suggests supervisor nodejs yarn
 

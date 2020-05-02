@@ -1,4 +1,4 @@
-FROM php:7.4.5-fpm
+FROM php:7.4-fpm-buster
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY xdebug.ini /xdebug.ini
