@@ -2,10 +2,8 @@ FROM php:7.4-cli-buster
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY xdebug.ini /xdebug.ini
-COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod 755 /entrypoint.sh && \
-    apt-get update && \
+RUN apt-get update && \
     pecl install xdebug && \
     apt-get install -y --no-install-recommends \
     acl apt-transport-https apt-utils \
@@ -15,6 +13,9 @@ RUN chmod 755 /entrypoint.sh && \
     mailutils nano openssl sudo unzip wget zip zlib1g-dev && \
     apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen && \
     docker-php-ext-install bcmath exif gd intl ldap opcache pdo_mysql pdo_pgsql sockets zip
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
 
 WORKDIR /var/www
 
