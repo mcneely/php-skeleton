@@ -97,3 +97,5 @@ fi
 #if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 #    . /etc/bash_completion
 #fi
+
+alias composer="php -d memory_limit=-1 /usr/local/bin/composer"

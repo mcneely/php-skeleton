@@ -29,37 +29,5 @@
         "psr-4": {
             "App\\Tests\\": "tests/"
         }
-    },
-    "scripts": {
-        "container-deploy-prod":  [
-            "@container-deploy-dev",
-            "yarn install --production"
-        ],
-        "container-deploy-dev":  [
-            "yarn install",
-            "yarn run build"
-        ],
-        "deploy-prod" : [
-            "git pull",
-            "docker exec php-cli composer install --no-dev",
-            "docker exec php-cli composer container-deploy-prod"
-        ],
-        "deploy-dev" : [
-            "docker exec php-cli composer install",
-            "docker exec php-cli composer container-deploy-dev"
-        ],
-        "prod-up": [
-            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml build",
-            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d"
-        ],
-        "dev-up": [
-            "docker-compose up -d"
-        ],
-        "prod-down": [
-            "docker-compose -f docker-compose.yml -f docker-compose.prod.yml down"
-        ],
-        "dev-down": [
-            "docker-compose down"
-        ]
     }
 }

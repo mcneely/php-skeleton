@@ -29,6 +29,8 @@ services:
     php-cli:
         env_file:
             - .env
+        extra_hosts:
+            - "host.docker.internal:172.17.0.1"
 
     mailhog:
         image: mailhog/mailhog
