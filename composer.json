@@ -10,9 +10,9 @@
         "ext-libxml": "*"
     },
     "require-dev": {
-        "phploc/phploc": "^6.0",
-        "phpstan/phpstan": "^0.12.19",
-        "phpunit/phpunit": "^9.1"
+        "phploc/phploc": "^7.0",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^9.4"
     },
     "config": {
         "preferred-install": {
