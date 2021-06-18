@@ -1,10 +1,5 @@
 PHP_CLI_RUN_CMD = docker-compose run --no-deps php-cli
 
-install-hook:
-	cp app/scripts/pre-commit .git/hooks/pre-commit
-	chmod 0777 .git/hooks/pre-commit
-.PHONY:install-hook
-
 copy:
 	cp docker-compose.override.dist.yml docker-compose.override.yml
 	cp .env.dist .env
